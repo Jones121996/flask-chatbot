@@ -1,0 +1,11 @@
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello, this is my Flask chatbot on Vercel!"
+
+# This is needed for Vercel
+def handler(request, *args, **kwargs):
+    return app(request.environ, start_response)
