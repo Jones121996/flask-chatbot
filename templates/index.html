@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        input { width: 300px; padding: 10px; margin: 10px; }
+        button { padding: 10px; }
+        #chatbox { width: 60%; margin: auto; text-align: left; }
+        .bot { color: blue; }
+        .user { color: green; }
+    </style>
+</head>
+<body>
+    <h2>Simple Chatbot</h2>
+    <div id="chatbox"></div>
+    <input id="userInput" type="text" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("userInput").value;
+            document.getElementById("chatbox").innerHTML += "<p class='user'>You: " + userInput + "</p>";
+            fetch("/get?msg=" + userInput)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("chatbox").innerHTML += "<p class='bot'>Bot: " + data + "</p>";
+                });
+            document.getElementById("userInput").value = "";
+        }
+    </script>
+</body>
+</html>
